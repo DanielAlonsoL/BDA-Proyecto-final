@@ -1,0 +1,35 @@
+1. Para el enunciado "Cada ciudadano tiene su propio consecutivo iniciando en 1 (dependencia de identificación)"
+¿Es válido agregar un atributo llamado "Numero_falta" en la entidad FALTA_CIVICA el cual tenga a su vez un indice unique compuesto por ciudadano_id y num_falta?
+Así por cada ciudadano mostraría que numero de falta es ¿o es mejor crear una tabla intermedia en donde tenga una PK compuesta por falta_civica_id y ciudadano_id y que tenga un atributo que indique el numero de falta?
+
+
+Creo que quisiste decir, cada falta cívica tiene su propio consecutivo... 
+¿ qué pasó inge?, esto es de bases 1 :p, clásico ejemplo de dependencia de identificación. Lo correcto es la PK compuesta.  Revisa tus notas de bd1 para que recuerdes bien este concepto.
+
+ 
+2. Para el párrafo que dice: "Cuando un sensor detecta una falta de algún automovilista, realiza una búsqueda en esta lista. Si el auto se encuentra en la lista, se registra el folio del dispositivo que detectó al auto así como la ubicación geográfica (latitud y longitud)."
+¿Es correcto crear una entidad FALTA_CIVICA_ROBO la cual es una tabla intermedia entre la falta_civa y el reporte_robo?
+Así por cada falta civica y por cada reporte de robo se busca en la lista y se anota el folio del dispositivo que detectó el auto y las coordenadas
+
+
+La relación sería:  Un reporte de robo puede asociarse a lo más con una falta cívica en la que se detectó que los datos de la falta coinciden con los datos del auto.
+Es decir:
+Un reporte de robo puede resolverse con una falta cívica.
+Una falta cívica puede resolver un reporte de auto robado.   Esto último debido a que la falta solo se genera para un solo auto.
+
+COn esto podrías confirmar si se requiere una relación M:N.. :P acuerdense de generar sus enunciados para no equivocarse.
+
+
+3. En el párrafo "Para determinar al dueño del auto (en especial para las faltas de semáforo y las de exceso de velocidad), se cuenta con un padrón de ciudadanos que actúan como titulares de los autos."
+¿Debe existir relación entre pasarse_alto con auto e igual para exceso_velocidad y auto? Ya que la entidad auto tiene el titular actual y el anterior
+¿O ya no es necesario relacionar esas entidades?
+
+
+No.  A lo que se refiere este punto es que una vez que se captura la falta cívica, en especial los 2 tipos que te mencionan, al momento de registrarse, se guardan las placas de los autos.  Con ese dato podrías hacer un cruce con  el padrón de ciudadanos para saber quién es el dueño de cierto auto.  Más bien tu modelo debe ligar a los autos con sus respectivos dueños. COn eso puedes implementar este requisito.
+
+
+ 
+4. Para los datos biométricos es un atributo por dedo o por mano? Nosotros se nos hizo mas fácil por mano (izquierda y derecha)
+
+Se requieren guardar las 10 huellas, una por dedo.
+
